@@ -1,0 +1,7 @@
+---
+# file: appservers.yml
+- hosts: aspen
+  gather_facts: False
+  roles:
+    - common
+    - aspen

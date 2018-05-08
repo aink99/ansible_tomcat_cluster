@@ -1,0 +1,7 @@
+---
+# file: reportingservers.yml
+- hosts: reporting
+  gather_facts: False
+  roles:
+    - common
+    - reporting

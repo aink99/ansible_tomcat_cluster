@@ -1,0 +1,24 @@
+---
+# file: roles/reporting/tasks/main.yml
+
+- ping:
+  register: normal_task_list
+
+
+- name: Stop Reporting service
+  #service: name=aspenrpt state=stopped
+  shell: "sudo /etc/init.d/aspenrpt stop"
+  when: normal_task_list is not defined
+  tags: aspenrpt_stop
+
+- name: Reporting service status
+  shell: "sudo /etc/init.d/aspenrpt status"
+  ignore_errors: True
+  when: normal_task_list is not defined
+  tags: aspenrpt_status
+
+- name: Start reporting service
+  #service: name=aspenrpt state=restarted sleep=5
+  shell: "sudo /etc/init.d/aspenrpt start"
+  when: normal_task_list is not defined
+  tags: aspenrpt_start

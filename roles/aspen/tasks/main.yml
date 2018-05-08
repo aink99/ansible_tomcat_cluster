@@ -1,0 +1,25 @@
+---
+# file: roles/application/tasks/main.yml
+
+
+- ping:
+  register: normal_task_list
+
+- name: Stop tomcat and aspen 
+  shell: "sudo /etc/init.d/tomcat stop"
+  #service: name=tomcat state=stopped
+  when: normal_task_list is not defined
+  tags: aspen_stop
+
+- name: service status
+  shell: "sudo /etc/init.d/tomcat status"
+  ignore_errors: True
+  when: normal_task_list is not defined
+  tags: aspen_status
+
+- name: Start tomcat and aspen
+  #become: true
+  #service: name=tomcat state=restarted sleep={{ sleep }}
+  shell: "sudo /etc/init.d/tomcat start && sleep {{ sleep }}"
+  when: normal_task_list is not defined
+  tags: aspen_start

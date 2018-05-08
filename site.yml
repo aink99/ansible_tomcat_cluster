@@ -1,0 +1,4 @@
+---
+# file: site.yml
+- include: aspen.yml
+#- include: reportingservers.yml
